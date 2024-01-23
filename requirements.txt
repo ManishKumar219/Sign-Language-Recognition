@@ -15,3 +15,4 @@ scipy
 Scikit-learn
 Flask
 Flask-cors
+-e .

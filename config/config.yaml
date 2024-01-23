@@ -1,0 +1,9 @@
+# All of the configuration realated to data ingestion
+
+artifacts_root: artifacts
+
+data_ingestion:
+  root_dir: artifacts/data-ingestion   
+  train_data_path: artifacts/data-ingestion/train.csv
+  test_data_path: artifacts/data-ingestion/test.csv
+  raw_data_path: artifacts/data-ingestion/data.csv
