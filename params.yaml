@@ -1,1 +1,12 @@
-key: val
+baseModelParams:
+  input_shape: 42
+  NumOfClasses: 28
+
+  Conv1D_1: 64
+  Dropout1: 0.2
+
+  Conv1D_2: 128
+  Dropout2: 0.2
+  pool_size: 2
+
+  Dense_layer: 94
