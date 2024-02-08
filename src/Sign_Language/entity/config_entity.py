@@ -24,3 +24,11 @@ class PrepareBaseModelConfig:
     Dropout2: float
     pool_size: int
     Dense_layer: int
+
+
+@dataclass(frozen=True)
+class PrepareCallbacksConfig:
+    root_dir: Path
+    tensorboard_root_log_dir: Path
+    checkpoint_model_filepath: Path
+    
