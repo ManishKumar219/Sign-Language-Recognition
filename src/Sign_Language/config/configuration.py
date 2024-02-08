@@ -1,7 +1,7 @@
 from Sign_Language.constants import *
 from Sign_Language.utils.common import read_yaml, create_directories
 from Sign_Language.entity.config_entity import (DataIngestionConfig, PrepareBaseModelConfig, 
-                                                PrepareCallbacksConfig)
+                                                PrepareCallbacksConfig, TrainingConfig)
 import os
 
 class ConfigurationManager:
@@ -72,3 +72,26 @@ class ConfigurationManager:
         )
 
         return get_prepare_callbacks_config
+    
+
+    def get_training_config(self) -> TrainingConfig:
+        training = self.config.training
+        prepare_base_model = self.config.prepare_base_model
+        params = self.params.baseModelParams
+
+        training_data = Path(self.config.data_ingestion.train_data_path)
+
+        create_directories([
+            Path(training.root_dir)
+        ])
+        
+        training_config = TrainingConfig(
+            root_dir = Path(training.root_dir),
+            trained_model_path = Path(training.trained_model_path),
+            base_model_path = Path(prepare_base_model.base_model_path),
+            training_data = training_data,
+            params_epochs = params.EPOCHS,
+            params_batch_size = params.BATCH_SIZE,
+            )
+        
+        return training_config

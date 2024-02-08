@@ -15,7 +15,7 @@ class DataIngestion:
     
     def load_file(self):
         if not os.path.exists(self.config.raw_data_path):
-            df = pd.read_csv("research/data/Data.csv")
+            df = pd.read_csv("research/data/Data.csv", index_col = "Unnamed: 0")
             logger.info(f"Read the Raw dataset as DataFrame: {self.config.raw_data_path}")
 
             df.to_csv(self.config.raw_data_path, index=True, header=True)
@@ -27,7 +27,7 @@ class DataIngestion:
 
     def create_train_test_data(self):
         if not os.path.exists(self.config.train_data_path):
-            df = pd.read_csv(self.config.raw_data_path)
+            df = pd.read_csv(self.config.raw_data_path, index_col = "Unnamed: 0")
             traindf, testdf = train_test_split(df, test_size=0.2, random_state=12)
 
             traindf.to_csv(self.config.train_data_path, index=True, header=True)

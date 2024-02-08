@@ -10,3 +10,6 @@ baseModelParams:
   pool_size: 2
 
   Dense_layer: 94
+
+  EPOCHS: 1
+  BATCH_SIZE: 50
