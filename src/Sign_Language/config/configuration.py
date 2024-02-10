@@ -1,7 +1,8 @@
 from Sign_Language.constants import *
 from Sign_Language.utils.common import read_yaml, create_directories
 from Sign_Language.entity.config_entity import (DataIngestionConfig, PrepareBaseModelConfig, 
-                                                PrepareCallbacksConfig, TrainingConfig)
+                                                PrepareCallbacksConfig, TrainingConfig, 
+                                                EvaluationConfig)
 import os
 
 class ConfigurationManager:
@@ -95,3 +96,17 @@ class ConfigurationManager:
             )
         
         return training_config
+    
+    def get_evaluation_config(self) -> EvaluationConfig:
+
+        config = self.config
+        # path_of_model = self.
+
+        eval_config = EvaluationConfig(
+            path_of_model = Path(config.training.trained_model_path),
+            testing_data = r"artifacts\data-ingestion\test.csv",
+            all_params = self.params.baseModelParams,
+            params_batch_size = self.params.baseModelParams.BATCH_SIZE
+        )
+
+        return eval_config

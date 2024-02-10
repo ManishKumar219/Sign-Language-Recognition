@@ -40,7 +40,7 @@ class PrepareModel:
         # Print model summary
         self.model.summary()
         # Compile model
-        self.model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+        # self.model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
         self.save_model(self.config.base_model_path, self.model)
         logger.info("Created the Base Model:")

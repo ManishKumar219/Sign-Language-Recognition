@@ -5,11 +5,11 @@ baseModelParams:
   Conv1D_1: 64
   Dropout1: 0.2
 
-  Conv1D_2: 128
-  Dropout2: 0.2
+  Conv1D_2: 64
+  Dropout2: 0.5
   pool_size: 2
 
-  Dense_layer: 94
+  Dense_layer: 100
 
-  EPOCHS: 1
-  BATCH_SIZE: 50
+  EPOCHS: 10
+  BATCH_SIZE: 100

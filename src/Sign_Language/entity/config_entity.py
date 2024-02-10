@@ -40,3 +40,10 @@ class TrainingConfig:
     training_data: Path
     params_epochs: int
     params_batch_size: int
+
+@dataclass(frozen=True)
+class EvaluationConfig:
+    path_of_model: Path
+    testing_data: Path
+    all_params: dict
+    params_batch_size: int

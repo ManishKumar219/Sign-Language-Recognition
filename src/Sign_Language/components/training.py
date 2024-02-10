@@ -23,7 +23,7 @@ class Training:
         model.save(path)
 
     def train(self, callback_list: list):
-        
+        self.model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
         self.model.fit(self.X, self.y, batch_size=self.config.params_batch_size, 
                        epochs=self.config.params_epochs, validation_split=0.2, 
                        callbacks=callback_list)
