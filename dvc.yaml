@@ -1,0 +1,55 @@
+stages:
+  data_ingestion:
+    cmd: python src/Sign_Language/pipeline/stage01_DataIngestion.py
+    deps:
+      - src/Sign_Language/pipeline/stage01_DataIngestion.py
+      - config/config.yaml
+    outs:
+      - artifacts/data-ingestion
+
+  prepare_base_model:
+    cmd: python src/Sign_Language/pipeline/stage02_Prepare_Base_Model.py
+    deps:
+      - src/Sign_Language/pipeline/stage02_Prepare_Base_Model.py
+      - config/config.yaml
+    params:
+      - baseModelParams.input_shape
+      - baseModelParams.NumOfClasses
+      - baseModelParams.Conv1D_1
+      - baseModelParams.Dropout1
+      - baseModelParams.Conv1D_2
+      - baseModelParams.Dropout2
+      - baseModelParams.pool_size
+      - baseModelParams.Dense_layer
+    outs:
+      - artifacts/prepare_base_model
+
+  training:
+    cmd: python src/Sign_Language/pipeline/stage03_training.py
+    deps:
+      - src/Sign_Language/pipeline/stage03_training.py
+      - src/Sign_Language/components/prepare_callbacks.py
+      - artifacts/data-ingestion
+      - artifacts/prepare_base_model
+      - config/config.yaml
+    params:
+      - baseModelParams.input_shape
+      - baseModelParams.EPOCHS
+      - baseModelParams.BATCH_SIZE
+    outs:
+      - artifacts/training/model.h5
+
+
+  evaluation:
+    cmd: python src/Sign_Language/pipeline/stage04_evaluation.py
+    deps:
+      - src/Sign_Language/pipeline/stage04_evaluation.py
+      - artifacts/training/model.h5
+      - artifacts/data-ingestion
+      - config/config.yaml
+    params:
+      - baseModelParams.input_shape
+      - baseModelParams.BATCH_SIZE
+    outs:
+      - scores.json
+
