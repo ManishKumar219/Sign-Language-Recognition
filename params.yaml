@@ -1,15 +1,15 @@
 baseModelParams:
-  input_shape: 42
-  NumOfClasses: 28
+  input_shape: 63
+  NumOfClasses: 39
 
   Conv1D_1: 64
   Dropout1: 0.2
 
-  Conv1D_2: 64
+  Conv1D_2: 128
   Dropout2: 0.5
   pool_size: 2
 
-  Dense_layer: 100
+  Dense_layer: 128
 
-  EPOCHS: 10
+  EPOCHS: 13
   BATCH_SIZE: 100

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLT</title>
+  <!-- Latest compiled and minified CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<style>
+  #hero{
+        background: url("{{url_for('static', filename='hero-bg.jpg')}}") top center;
+    }
+</style>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <h1 class="logo"><a href="/">Sign Language Translator</a></h1>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="/">Home</a></li>
+          <li><a class="nav-link scrollto" href="/sign_to_text">Sign to Text</a></li>
+          <!-- <li><a class="nav-link scrollto" href="/text_to_sign">Speech to Text</a></li> -->
+          <li><a class="nav-link scrollto o" href="/text_to_sign">Text to Sign</a></li>
+          <!-- <li><a class="getstarted scrollto" href="#about">Get Started</a></li> -->
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header>
+  <!-- End Header -->
+
+
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+      <div class="row justify-content-center">
+        <div class="col-xl-7 col-lg-9 text-center">
+          <h1>Sign Language Translator</h1>
+          <h2>For Deaf and Dumb Peoples</h2>
+        </div>
+      </div>
+      <div class="text-center">
+        <a href="/sign_to_text" class="btn-get-started scrollto">Get Started</a>
+      </div>
+
+      <!-- -------------------------------- -->
+      <br><br><br>
+      <div class="section-title">
+        <h1 style="font-size: 2.5em;">OVERVIEW</h1>
+      </div>
+      <div class="text-center" style="width: 85%; margin: auto; margin-bottom: 50px;">
+        <p style="font-size: 1.2em;">The Sign Language Translator project is a groundbreaking endeavor
+          that seeks to bridge the communication gap between
+          individuals who use sign language and those who do not. Utilizing cutting-edge technology such as
+          computer vision and machine learning, this project aims to revolutionize communication accessibility for the
+          deaf and hard of hearing community.</p>
+      </div>
+
+      <div class="row icon-boxes" style="margin-bottom: 150px;">
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="200">
+          <div class="icon-box">
+            <div class="icon"><i class="ri-stack-line"></i></div>
+            <h4 class="title"><a href="">Learning boost</a></h4>
+            <p class="description">Help deaf and hard-of-hearing children learn spoken languages by providing visual translations.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="300">
+          <div class="icon-box">
+            <div class="icon"><i class="ri-palette-line"></i></div>
+            <h4 class="title"><a href="">Connect everyone</a></h4>
+            <p class="description">Create a world where everyone can talk and be understood, regardless of their hearing ability</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="400">
+          <div class="icon-box">
+            <div class="icon"><i class="ri-command-line"></i></div>
+            <h4 class="title"><a href="">Break down walls</a></h4>
+            <p class="description">Help people who sign and speak different languages understand each other, making the world more inclusive</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="500">
+          <div class="icon-box">
+            <div class="icon"><i class="ri-fingerprint-line"></i></div>
+            <h4 class="title"><a href="">Equal access</a></h4>
+            <p class="description">Give deaf and hard-of-hearing people the same chance to participate in conversations and information as everyone else.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</body>
+
+</html>

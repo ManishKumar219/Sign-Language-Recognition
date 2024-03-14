@@ -34,7 +34,7 @@ class PrepareModel:
         self.model.add(Dense(self.config.Dense_layer, activation='relu'))
 
         # Fully Connected Layer 2
-        self.model.add(Dense(28, activation='softmax'))
+        self.model.add(Dense(self.config.NumOfClasses, activation='softmax'))
         # ---------------------------------------------------------------------------------- #
 
         # Print model summary

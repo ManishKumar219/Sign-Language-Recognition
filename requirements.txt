@@ -15,4 +15,8 @@ scipy
 Scikit-learn
 Flask
 Flask-cors
+opencv-python
+db-sqlite3
+pyttsx3
+mediapipe
 -e .

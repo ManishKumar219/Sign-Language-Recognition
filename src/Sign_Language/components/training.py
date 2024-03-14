@@ -13,7 +13,7 @@ class Training:
     
     def train_valid_generator(self):
 
-        data = pd.read_csv(self.config.training_data, index_col = "Unnamed: 0")
+        data = pd.read_csv(self.config.training_data)
         self.X = np.array(data.drop('label', axis = 1))
         self.y = np.array(data[['label']])
         

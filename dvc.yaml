@@ -36,6 +36,7 @@ stages:
       - baseModelParams.input_shape
       - baseModelParams.EPOCHS
       - baseModelParams.BATCH_SIZE
+      - baseModelParams.NumOfClasses
     outs:
       - artifacts/training/model.h5
 

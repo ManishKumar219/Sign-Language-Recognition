@@ -14,8 +14,8 @@ stages:
     outs:
     - path: artifacts/data-ingestion
       hash: md5
-      md5: ab2daabbaef81cfe22a03aa0ce00040a.dir
-      size: 85517398
+      md5: 770c61b3b65ebf61bd5c8726ddf98401.dir
+      size: 167326903
       nfiles: 3
   prepare_base_model:
     cmd: python src/Sign_Language/pipeline/stage02_Prepare_Base_Model.py
@@ -31,31 +31,31 @@ stages:
     params:
       params.yaml:
         baseModelParams.Conv1D_1: 64
-        baseModelParams.Conv1D_2: 64
-        baseModelParams.Dense_layer: 100
+        baseModelParams.Conv1D_2: 128
+        baseModelParams.Dense_layer: 128
         baseModelParams.Dropout1: 0.2
         baseModelParams.Dropout2: 0.5
-        baseModelParams.NumOfClasses: 28
-        baseModelParams.input_shape: 42
+        baseModelParams.NumOfClasses: 39
+        baseModelParams.input_shape: 63
         baseModelParams.pool_size: 2
     outs:
     - path: artifacts/prepare_base_model
       hash: md5
-      md5: 2babe368a39c09402a249015faa6fe90.dir
-      size: 571176
+      md5: 6b5aac45c6c44f34f5980bde8c2e29ac.dir
+      size: 2045288
       nfiles: 1
   training:
     cmd: python src/Sign_Language/pipeline/stage03_training.py
     deps:
     - path: artifacts/data-ingestion
       hash: md5
-      md5: ab2daabbaef81cfe22a03aa0ce00040a.dir
-      size: 85517398
+      md5: 770c61b3b65ebf61bd5c8726ddf98401.dir
+      size: 167326903
       nfiles: 3
     - path: artifacts/prepare_base_model
       hash: md5
-      md5: 2babe368a39c09402a249015faa6fe90.dir
-      size: 571176
+      md5: 6b5aac45c6c44f34f5980bde8c2e29ac.dir
+      size: 2045288
       nfiles: 1
     - path: config/config.yaml
       hash: md5
@@ -72,10 +72,10 @@ stages:
     params:
       params.yaml:
         baseModelParams.BATCH_SIZE: 100
-        baseModelParams.EPOCHS: 10
-        baseModelParams.input_shape: 42
+        baseModelParams.EPOCHS: 13
+        baseModelParams.input_shape: 63
     outs:
     - path: artifacts/training/model.h5
       hash: md5
-      md5: 07add02ee9722c476dc7b2c7c6e154ac
-      size: 1690664
+      md5: 813f31a178f5f2e66abdad5729fcb7c4
+      size: 6107996

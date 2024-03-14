@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<style>
+    #hero{
+        background: url("{{url_for('static', filename='hero-bg.jpg')}}") top center;
+    }
+    input{
+        /* border: none; */
+        font-size: 1.2em;
+        width: 60%;
+        height: 3em;
+    }
+    button{
+        width: 300px;
+    }
+    img{
+        width: 400px; border: 2px solid black; background-color: #f7f8f9; margin-bottom: 100px;
+    }
+</style>
+
+<body>
+
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center justify-content-between">
+
+            <h1 class="logo"><a href="/">Sign Language Translator</a></h1>
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto" href="/">Home</a></li>
+                    <li><a class="nav-link scrollto" href="/sign_to_text">Sign to Text</a></li>
+                    <!-- <li><a class="nav-link scrollto" href="#">Speech to Text</a></li> -->
+                    <li><a class="nav-link scrollto active" href="/text_to_sign">Text to Sign</a></li>
+
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+        </div>
+    </header>
+
+    <section id="hero" class="d-flex align-items-center">
+
+    </section>
+
+
+
+    <div class="text-center shadow">
+        <p class="logo" style="font-size: 1.2em; margin: 25px auto; border-bottom: 2px solid black; width: fit-content;">A tool for learning Sign Language</p> 
+
+        <input type="text" id="letterInput" placeholder="Enter a letter sequence" /><br>
+        <button onclick="displayImageSequence()" type="button" class="btn btn-lg btn-dark shadow" style="width: 300px; margin: 20px 20px;">Display Sign Language</button>
+        
+        <div class="text-center">
+            <img id="alphabetImage" src="{{url_for('static', filename='Alphabets_Images/blank.png')}}" alt="Alphabet image" />
+            <h1 id="outputText" style="position: relative; top: -170px; left: 140px; font-weight: bolder; color: black;"></h1>
+        </div>
+
+
+        </p>
+    </div>
+
+
+
+
+    <script>
+        function displayImageSequence() {
+            var letterSequence = document.getElementById("letterInput").value.toUpperCase();
+            var imagePath = "Alphabets_Images/";
+            var imageFormat = ".png";
+            var imageSource = "";
+            var index = 0;
+
+            if (letterSequence.length > 0 && letterSequence.match(/^[A-Z ]*$/)) {
+                var interval = setInterval(function() {
+                if (index >= letterSequence.length) {
+                    clearInterval(interval);
+                    return;
+                }
+                
+                if(letterSequence[index] == " "){
+                    source = "{{url_for('static', filename='Alphabets_Images/blank.png')}}"
+                    document.getElementById("alphabetImage").src = source;
+                    document.getElementById("outputText").innerText = " ";
+                }
+                else{
+                    imageSource = "{{ url_for('static', filename='Alphabets_Images/') }}" + letterSequence[index] + ".png";
+                    document.getElementById("alphabetImage").src = imageSource;
+                    document.getElementById("outputText").innerText = letterSequence[index];
+                }
+                
+                index++;
+
+                }, 1500);
+            } else {
+                alert("Please enter a valid letter sequence.");
+            }
+        }
+
+    </script>
+    <!-- <script>
+        function displayImageSequence() {
+            var letterSequence = document.getElementById("letterInput").value.toUpperCase();
+            var imagePath = "Alphabets_Images/";
+            var imageFormat = ".png";
+            var imageSource = "";
+            var index = 0;
+        
+            if (letterSequence.length > 0 && letterSequence.match(/^[A-Z]*$/)) {
+                var interval = setInterval(function() {
+                    if (index >= letterSequence.length) {
+                        clearInterval(interval);
+                        return;
+                    }
+        
+                    // Display the current image
+                    imageSource = imagePath + letterSequence[index] + imageFormat;
+                    document.getElementById("alphabetImage").src = imageSource;
+        
+                    // Wait for 500ms before displaying the next image
+                    setTimeout(function() {
+                        // Display a blank image
+                        document.getElementById("alphabetImage").src = "Alphabets_Images/blank.png";
+        
+                        // Wait for 500ms before displaying the next image
+                        setTimeout(function() {
+                            index++;
+                        }, 300);
+                    }, 300);
+        
+                }, 1000); // Change the interval to 1000ms to account for the 500ms wait after displaying each image
+            } else {
+                alert("Please enter a valid letter sequence.");
+            }
+        }
+        </script> -->
+</body>
+
+</html>
+

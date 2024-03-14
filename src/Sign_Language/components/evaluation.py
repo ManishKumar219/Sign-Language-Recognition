@@ -16,7 +16,7 @@ class Evaluation:
     
 
     def evaluation(self):
-        data = pd.read_csv(self.config.testing_data, index_col = "Unnamed: 0")
+        data = pd.read_csv(self.config.testing_data)
         model = tf.keras.models.load_model(r"artifacts\training\model.h5")
         
         self.X = np.array(data.drop('label', axis = 1))
