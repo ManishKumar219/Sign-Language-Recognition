@@ -68,7 +68,6 @@ def get_pred_from_landmarks(lms):
         text = get_text_from_database(pred_class)
     return text
 
-x, y, w, h = 300, 100, 300, 300
 is_voice_on = True
 MAX_FRAME = 15
 SAME_FRAME_CNT = 10
@@ -118,7 +117,7 @@ def text_mode(cam):
             cv2.putText(blackboard, " ", (450, 440), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 127, 0))
         else:
             cv2.putText(blackboard, " ", (450, 440), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 127, 0))
-        cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2)
+        # cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2)
         res = np.hstack((img, blackboard))
         cv2.imshow("Recognizing gesture", res)
         keypress = cv2.waitKey(1)
@@ -271,7 +270,7 @@ def calculator_mode(cam):
             cv2.putText(blackboard, " ", (450, 440), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 127, 0))
         else:
             cv2.putText(blackboard, " ", (450, 440), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 127, 0))
-        cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2)
+        # cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2)
         res = np.hstack((img, blackboard))
         cv2.imshow("Recognizing gesture", res)
         keypress = cv2.waitKey(1)
@@ -288,7 +287,7 @@ def calculator_mode(cam):
         return 0
 
 def recognize():
-	cam = cv2.VideoCapture(1)
+	cam = cv2.VideoCapture(0)
 	if cam.read()[0]==False:
 		cam = cv2.VideoCapture(0)
 	text = ""

@@ -227,3 +227,9 @@ def recognize():
 recognize()
 ````
 
+## Scores
+
+```bash
+    "loss": 0.0772174671292305,
+    "accuracy": 0.983916163444519
+```
