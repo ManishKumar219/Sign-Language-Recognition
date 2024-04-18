@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/animStyle.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<style>
+    #hero {
+        background: url("./images/hero-bg.jpg");
+        /* background: url("{{url_for('static', filename='hero-bg.jpg')}}") top center; */
+    }
+</style>
+
+<body>
+
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center justify-content-between">
+
+            <h1 class="logo"><a href="/">Sign Language Translator</a></h1>
+
+            <nav id="navbar" class="navbar_style">
+                <ul>
+                    <li><a class="nav-link scrollto" href="index.html"><span>Home</span></a></li>
+                    <li><a class="nav-link scrollto" href="sign_to_text.html"><span>Sign to Text</a></span></li>
+                    <li><a class="nav-link scrollto" href="text_to_sign.html"><span>Text to Sign</a></span></li>
+                    <li><a class="nav-link scrollto active" href="installGuide.html"><span>Guide</span></a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+        </div>
+    </header>
+
+    <section id="hero" class="d-flex align-items-center">
+        <div class="text-center">
+        <h1 class="position-relative typing-text ">Installation Guide</h1>
+        </div>
+    </section>
+
+    <!-- <div class="typing-text">Installation Guide</div> -->
+    <section class="install_guide_page">
+
+    <!-- <h2>Demo</h2>
+    <p><img src="./img/demo4.gif" alt="Example screenshot" /></p>
+    <p><img src="./img/demo2.gif" alt="Example screenshot" /></p>
+    <p><img src="./img/demo3.gif" alt="Example screenshot" /></p> -->
+    <hr>
+
+    <div class="heading_ins">
+        <h2>Technologies and Tools</h2>
+    <ul>
+        <li>Python</li>
+        <li>TensorFlow</li>
+        <li>Keras</li>
+        <li>OpenCV</li>
+        <li>MediaPipe</li>
+    </ul>
+
+    </div>
+    
+    <br>
+    <hr>
+    <div class="heading_ins">
+    <h2>How to run?</h2>
+    <h4>STEPS:</h4>
+    <hr>
+    <h4>STEP 01- Clone the repository</h4>
+    <div class="sourceCode">
+        https://github.com/ManishKumar219/Sign-Language-Recognition
+    </div>
+    <hr>
+    <h4>STEP 02- Create a conda environment after opening the
+        repository</h4>
+    <div class="sourceCode">
+        conda create <span class="at">-n</span> aslenv python=3.8 <span class="at">-y</span>
+    </div>
+    <div class="sourceCode">
+        conda activate aslenv
+    </div>
+    <hr>
+    <h4>STEP 03- install the requirements</h4>
+    <div class="sourceCode" id="cb4">
+        pip install <span class="at">-r</span> requirements.txt
+    </div>
+    <hr>
+    <h4>STEP 04- run the following command</h4>
+    <div class="sourceCode">
+        uvicorn main:app --host 0.0.0.0 --port 80
+    </div>
+
+    <hr>
+    <h4>STEP 05- Edit the react.js file</h4>
+    <div class="sourceCode">
+        const socket = new WebSocket('ws://localhost:&ltport&gt/asl-detection');
+    </div>
+
+    <hr>
+    <p>Now,</p>
+    <div class="sourceCode" id="cb6">
+        open up you local host "http://localhost/&ltPORT&gt"
+    </div>
+
+</div>
+
+<div class="heading_ins">
+    <h2>Code Examples</h2>
+
+    <div class="sourceCode_vert">
+    <pre><code>import cv2, pickle
+import tensorflow as tf
+import os
+import sqlite3, pyttsx3
+from keras.models import load_model
+from threading import Thread
+import numpy as np
+import mediapipe as mp
+
+engine = pyttsx3.init()
+engine.setProperty(&#39;rate&#39;, 150)
+os.environ[&#39;TF_CPP_MIN_LOG_LEVEL&#39;] = &#39;3&#39;
+model = load_model(r&quot;artifacts/training/model.h5&quot;)
+
+mpHands = mp.solutions.hands
+hands = mpHands.Hands()
+
+mpDraw = mp.solutions.drawing_utils
+mpDrawingStyle = mp.solutions.drawing_styles
+
+def model_prediction(model, landmarks):
+    pred_prob = model.predict(landmarks)
+    pred_class = np.argmax(pred_prob)
+    return pred_class, max(max(pred_prob))
+
+
+def process_image(frame):
+    # img = frame.to_ndarray(format=&quot;bgr24&quot;)
+    imgRGB = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    return imgRGB
+
+def get_landmarks(result):
+    lmsList = []
+    # result = hands.process(imgRGB)
+    if result.multi_hand_landmarks:
+        handLms = result.multi_hand_landmarks[0]
+        for lm in handLms.landmark:
+            # h, w, c = imgRGB.shape
+            lmsList.append(lm.x)
+            lmsList.append(lm.y)
+            lmsList.append(lm.z)
+        lmsList = [lmsList]
+        lmsList = np.array(lmsList)
+    return lmsList
+
+
+def say_text(text):
+    if not is_voice_on:
+        return
+    while engine._inLoop:
+        pass
+    engine.say(text)
+    engine.runAndWait()
+
+def get_text_from_database(pred_class):
+    conn = sqlite3.connect(&#39;database.db&#39;)
+    cursor = conn.cursor()
+    command = &quot;SELECT label FROM gesture WHERE label_index=&quot; + str(pred_class)
+    cursor.execute(command)
+    for row in cursor:
+        return row[0]
+
+def get_pred_from_landmarks(lms):
+    text = &quot;&quot;
+    pred_class, pred_prob = model_prediction(model, lms)
+    # print(pred_class, pred_prob)
+    if (pred_prob * 100 &gt; 60):
+        text = get_text_from_database(pred_class)
+    return text
+
+x, y, w, h = 300, 100, 300, 300
+is_voice_on = True
+MAX_FRAME = 15
+SAME_FRAME_CNT = 10
+
+def text_mode(cam):
+    global is_voice_on
+    text = &quot;&quot;
+    word = &quot;&quot;
+    count_same_frame = 0
+    while True:
+        img = cam.read()[1]
+        imgRGB = process_image(img)
+        result = hands.process(imgRGB)
+        old_text = text
+        if result.multi_hand_landmarks:
+            handLms = result.multi_hand_landmarks[0]
+            mpDraw.draw_landmarks(img, handLms, mpHands.HAND_CONNECTIONS, mpDrawingStyle.get_default_hand_landmarks_style(),
+                                        mpDrawingStyle.get_default_hand_connections_style())
+            lms = get_landmarks(result)
+            text = get_pred_from_landmarks(lms)
+            if(old_text == text):
+                count_same_frame += 1
+            else:
+                count_same_frame = 0
+                
+            if count_same_frame &gt; SAME_FRAME_CNT:
+                if len(text) == 1:
+                    Thread(target=say_text, args=(text, )).start()
+                word = word + text
+                if word.startswith(&#39;I/Me &#39;):
+                    word = word.replace(&#39;I/Me &#39;, &#39;I &#39;)
+                elif word.endswith(&#39;I/Me &#39;):
+                    word = word.replace(&#39;I/Me &#39;, &#39;me &#39;)
+                count_same_frame = 0
+
+        else:
+            if(word!=&#39;&#39;):
+                Thread(target=say_text, args=(word, )).start()
+            text = &quot;&quot;
+            word = &quot;&quot;
+
+        blackboard = np.zeros((480, 640, 3), dtype=np.uint8)
+        cv2.putText(blackboard, &quot; &quot;, (180, 50), cv2.FONT_HERSHEY_TRIPLEX, 1.5, (255, 0,0))
+        cv2.putText(blackboard, &quot;Predicted text- &quot; + text, (30, 100), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 255, 0))
+        cv2.putText(blackboard, word, (30, 240), cv2.FONT_HERSHEY_TRIPLEX, 2, (255, 255, 255))
+        if is_voice_on:
+            cv2.putText(blackboard, &quot; &quot;, (450, 440), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 127, 0))
+        else:
+            cv2.putText(blackboard, &quot; &quot;, (450, 440), cv2.FONT_HERSHEY_TRIPLEX, 1, (255, 127, 0))
+        cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2)
+        res = np.hstack((img, blackboard))
+        cv2.imshow(&quot;Recognizing gesture&quot;, res)
+        keypress = cv2.waitKey(1)
+        if keypress == ord(&#39;q&#39;) or keypress == ord(&#39;c&#39;):
+            break
+        if keypress == ord(&#39;v&#39;) and is_voice_on:
+            is_voice_on = False
+        elif keypress == ord(&#39;v&#39;) and not is_voice_on:
+            is_voice_on = True
+
+    if keypress == ord(&#39;c&#39;):
+        return 2
+    else:
+        return 0
+
+def recognize():
+    cam = cv2.VideoCapture(1)
+    if cam.read()[0]==False:
+        cam = cv2.VideoCapture(0)
+    text = &quot;&quot;
+    word = &quot;&quot;
+    count_same_frame = 0
+    keypress = 1
+    while True:
+        if keypress == 1:
+            keypress = text_mode(cam)
+        else:
+            break
+
+recognize()</code></pre>
+</div>
+
+</div>
+
+<!-- <div class="heading_ins">
+    <h2>Score</h2>
+    <div class="sourceCode">
+        <code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;loss&quot;</span><span class="ex">:</span> 0.0772174671292305,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;accuracy&quot;</span><span class="ex">:</span> 0.983916163444519</span></code></pre>
+    </div>
+</div> -->
+
+    </section>
+
+
+</body>
+
+</html>

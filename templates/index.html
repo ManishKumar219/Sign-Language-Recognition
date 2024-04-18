@@ -8,6 +8,7 @@
   <!-- Latest compiled and minified CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="../static/animStyle.css">
   <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
 
   <!-- Latest compiled JavaScript -->
@@ -16,7 +17,7 @@
 
 <style>
   #hero{
-        background: url("{{url_for('static', filename='hero-bg.jpg')}}") top center;
+        background: url("./images/hero-bg.jpg");
     }
 </style>
 
@@ -28,13 +29,12 @@
 
       <h1 class="logo"><a href="/">Sign Language Translator</a></h1>
 
-      <nav id="navbar" class="navbar">
+      <nav id="navbar" class="navbar_style">
         <ul>
-          <li><a class="nav-link scrollto active" href="/">Home</a></li>
-          <li><a class="nav-link scrollto" href="/sign_to_text">Sign to Text</a></li>
-          <!-- <li><a class="nav-link scrollto" href="/text_to_sign">Speech to Text</a></li> -->
-          <li><a class="nav-link scrollto o" href="/text_to_sign">Text to Sign</a></li>
-          <!-- <li><a class="getstarted scrollto" href="#about">Get Started</a></li> -->
+          <li><a class="nav-link scrollto active" href="index.html"><span>Home</span></a></li>
+          <li><a class="nav-link scrollto" href="sign_to_text.html"><span>Sign to Text</a></span></li>
+          <li><a class="nav-link scrollto" href="text_to_sign.html"><span>Text to Sign</a></span></li>
+          <li><a class="nav-link scrollto" href="installGuide.html"><span>Guide</span></a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -48,21 +48,23 @@
     <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
       <div class="row justify-content-center">
         <div class="col-xl-7 col-lg-9 text-center">
-          <h1>Sign Language Translator</h1>
-          <h2>For Deaf and Dumb Peoples</h2>
+          <h1 class="zoom">Sign Language Translator</h1>
+          <h2 class="typing-text" style="width: 750px;">For Deaf and Dumb Peoples</h2>
         </div>
       </div>
       <div class="text-center">
-        <a href="/sign_to_text" class="btn-get-started scrollto">Get Started</a>
+        <!-- <a href="/sign_to_text" class="btn-get-started scrollto">Get Started</a> -->
+        <button class="glow-on-hover" type="button" onclick="window.location.href='sign_to_text.html'">GET STARTED!</button>
+
       </div>
 
       <!-- -------------------------------- -->
       <br><br><br>
       <div class="section-title">
-        <h1 style="font-size: 2.5em;">OVERVIEW</h1>
+        <h1 style="font-size: 2.5em;" class="zoom">OVERVIEW</h1>
       </div>
-      <div class="text-center" style="width: 85%; margin: auto; margin-bottom: 50px;">
-        <p style="font-size: 1.2em;">The Sign Language Translator project is a groundbreaking endeavor
+      <div class="text-center" style="width: 85%; margin: auto;">
+        <p style="font-size: 1.2em;" class="zoom_small">The Sign Language Translator project is a groundbreaking endeavor
           that seeks to bridge the communication gap between
           individuals who use sign language and those who do not. Utilizing cutting-edge technology such as
           computer vision and machine learning, this project aims to revolutionize communication accessibility for the
@@ -104,8 +106,24 @@
 
       </div>
     </div>
+
+    
   </section>
 
+  <div class="install align-items-center">
+    <a href="installGuide.html"><span>INSTALLATION GUIDE</span></a>
+  </div>
 </body>
+
+<script>
+   var now = Date.now();
+navigator.mediaDevices.getUserMedia({audio: false, video: true})
+.then(function(stream) {
+  console.log('Got stream, time diff :', Date.now() - now);
+})
+.catch(function(err) {
+  console.log('GUM failed with error, time diff: ', Date.now() - now);
+});
+</script>
 
 </html>

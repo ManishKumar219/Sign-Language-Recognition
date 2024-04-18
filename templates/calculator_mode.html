@@ -43,17 +43,17 @@
 
     <section id="hero" class="d-flex align-items-center">
       <div class="text-center">
-        <h1 class="position-relative">Real-time Sign Langugage Translator</h1>
+        <h1 class="position-relative">Real time Sign Langugage Translator</h1>
         </div>
         
     </section> 
 
     <div>
       <div class="btn" style="margin-left: 28%;">
-        <a href="sign_to_text.html" class="active"><span>Text Mode</span></a>
+        <a href="sign_to_text.html"><span>Text Mode</span></a>
       </div>
       <div class="btn">
-        <a href="calculator_mode.html"><span>Calculator Mode</span></a>
+        <a href="calculator_mode.html" class="active"><span>Calculator Mode</span></a>
       </div>
     </div>
 
@@ -72,22 +72,80 @@
             <video id="video"></video>
             <canvas id="canvas" class="position-absolute top-0 start-0"></canvas>
           </div>
-          <p id="transcribe" style="font-size: 2em; font-weight: bold; margin: 150px 0 0 25px;"></p>
+          <div style="margin: 150px 0 0 25px;">
+            <p class="output">Info: </p><p id="info" class="output"></p>
+            <br>
+            <p class="output">Result: </p><p id="result" class="output"></p>
+          </div>
         </div>
       </div>
-
-
+    
       <div class="container">
         <hr>
         <h2 class="guide">Guide</h2>
-        <div style="margin: auto; width: fit-content; border: 2px solid black; border-radius: 20px;">
-          <img src="./images/SignLanuage.png" alt="" style="margin: 8px;">
+        <!-- <div style="margin: auto; width: fit-content; border: 2px solid black; border-radius: 20px;">
+          <img src="./images/Digits.png" alt="" style="margin: 8px;">
         </div>
-        
-      </div>
+        <hr> -->
+        <div class="table-title">
+          <h3>Number to Operator Mapping</h3>
+          </div>
     
+          <table class="table-fill">
+            <thead>
+            <tr>
+            <th class="text-left">Index</th>
+            <th class="text-left">Operator</th>
+            </tr>
+            </thead>
+            <tbody class="table-hover">
+            <tr>
+            <td class="text-left">1</td>
+            <td class="text-left">+ &#40;ADD&#41;</td>
+            </tr>
+            <tr>
+            <td class="text-left">2</td>
+            <td class="text-left">- &#40;SUBSTRACT&#41;</td>
+            </tr>
+            <tr>
+            <td class="text-left">3</td>
+            <td class="text-left">* &#40;Multiply&#41;</td>
+            </tr>
+            <tr>
+            <td class="text-left">4</td>
+            <td class="text-left">/ &#40;Divide&#41;</td>
+            </tr>
+            <tr>
+            <td class="text-left">5</td>
+            <td class="text-left">% &#40;Mod&#41;</td>
+            </tr>
+            <tr>
+            <td class="text-left">6</td>
+            <td class="text-left">** &#40;Raised to the power&#41;</td>
+            </tr>
+            <tr>
+            <td class="text-left">7</td>
+            <td class="text-left">>> &#40;Bitwise Right Shift&#41;</td>
+            </tr>
+            <tr>
+            <td class="text-left">8</td>
+            <td class="text-left"><< &#40;Bitwise Left Shift&#41;</td>
+            </tr>
+            <tr>
+            <td class="text-left">9</td>
+            <td class="text-left">&amp; &#40;bitwise AND&#41;</td>
+            </tr>
+            </tr>
+            <tr>
+            <td class="text-left">0</td>
+            <td class="text-left">| &#40;Bitwise OR&#41;</td>
+            </tr>
+            </tbody>
+            </table>
+
+      </div>
       
-      <script src="../static/script.js"></script>
+      <script src="../static/script2.js"></script>
 
 
 </body>

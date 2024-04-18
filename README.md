@@ -1,4 +1,4 @@
-# Chicken-Disease-Classification--Project
+# Sign-Language-Translator--Project
 
 
 <!-- ## Workflows
