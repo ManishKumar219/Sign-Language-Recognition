@@ -4,6 +4,18 @@ console.log("Succes");
 console.log(IMAGE_INTERVAL_MS)
 
 
+function speak(input) {
+  // Create a SpeechSynthesisUtterance
+  const utterance = new SpeechSynthesisUtterance(input);
+
+  // Select a voice
+  const voices = speechSynthesis.getVoices();
+  utterance.voice = voices[0]; // Choose a specific voice
+
+  // Speak the text
+  speechSynthesis.speak(utterance);
+}
+
 
 const startHandDetection = (video, canvas, deviceId) => {
   const socket = new WebSocket('ws://localhost:8000/asl-detection');
@@ -63,6 +75,7 @@ const startHandDetection = (video, canvas, deviceId) => {
       text_data = text_data.replace(regex, " ");
       document.getElementById('transcribe').innerText = text_data;
       socket.close();
+      speak(text_data.toString());
       if (mediaStream && mediaStream.getTracks) {
         mediaStream.getTracks().forEach(track => track.stop());
       }

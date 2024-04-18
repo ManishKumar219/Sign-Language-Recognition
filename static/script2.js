@@ -7,6 +7,28 @@ let info = document.getElementById('info')
 let result = document.getElementById('result')
 
 
+function speak(input) {
+  // Create a SpeechSynthesisUtterance
+  input = input.replace('-', ' minus ')
+  input = input.replace('/', ' divided by ')
+  input = input.replace('**', ' raised to the power ')
+  input = input.replace('*', ' multiplied by ')
+  input = input.replace('%', ' mod ')
+  input = input.replace('>>', ' bitwise right shift ')
+  input = input.replace('<<', ' bitwise leftt shift ')
+  input = input.replace('&', ' bitwise and ')
+  input = input.replace('|', ' bitwise or ')
+  const utterance = new SpeechSynthesisUtterance(input);
+
+  // Select a voice
+  const voices = speechSynthesis.getVoices();
+  utterance.voice = voices[0]; // Choose a specific voice
+
+  // Speak the text
+  speechSynthesis.speak(utterance);
+}
+
+
 const startHandDetection = (video, canvas, deviceId) => {
   const socket = new WebSocket('ws://localhost:8000/calc-mode');
   // const socket = new WebSocket('wss://api-for-asl.onrender.com/face-detection');
@@ -72,6 +94,7 @@ const startHandDetection = (video, canvas, deviceId) => {
 
       if(recv_info == "Result"){
         socket.close();
+        speak(recv_result);
       }
 
   });
